@@ -1,0 +1,28 @@
+# System
+.DS_Store
+Thumbs.db
+
+# Node (si tu ajoutes tooling)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Build output
+dist/
+build/
+
+# OS specific
+desktop.ini
+
+# Temporary
+*.tmp
+*.log
+
+# GitHub Pages (optionnel)
+.site/
