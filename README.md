@@ -1,97 +1,54 @@
-# FitCoach 60+ — Programme du jour (version guidée)
+# FitCoach60plus
 
-**Objectif** : Mobilité + Tonus  
-**Durée** : 20 min  
-**Niveau** : Doux / Débutant
+Prototype d'application web locale pour seniors 60+. Objectif : proposer des programmes sécurisés sans appui sur les mains, une bibliothèque de 20 exercices, 6 programmes, kits express, suivi du poids et animations explicatives intégrées.
 
----
+## But du projet
+Fournir un prototype autonome, simple à déployer et tester par des seniors ou des équipes locales, avec des consignes claires, des variantes sécurisées et des fiches imprimables.
 
-## Mode d'emploi rapide (à garder sous les yeux)
-- Matériel : chaise stable, surface plane, bouteille d'eau.  
-- Rythme : fais chaque série lentement; pause 30–60s entre séries.  
-- Signal d'arrêt : douleur aiguë ou vertiges → arrêter et reposer.  
-- Version imprimable : scroller et imprimer cette page.
+## Fonctionnalités principales
+- Page d'accueil responsive et navigation simple
+- Bibliothèque de 20 exercices avec consignes françaises corrigées, variantes et animations SVG intégrées
+- 6 programmes prêts à l’emploi : débutant, marche nordique, mobilité, perte de poids, équilibre, avancé
+- Kits express pour séances courtes (matin, rando, soir)
+- Suivi du poids en localStorage et graphique simple
+- Enregistrement des séances, export CSV, fiches imprimables
+- Fonctionne hors‑ligne et sans dépendances externes
 
----
+## Arborescence recommandée
+- index.html
+- styles.css
+- app.js
+- README.md
+- .gitignore
+- /media (optionnel pour vidéos MP4 locales)
+- /assets/icons (optionnel pour SVG pictos)
 
-## Séance détaillée (suivre dans l'ordre)
+## Installation et test local rapide
+1. Cloner le dépôt ou télécharger les fichiers.  
+2. Placer index.html, styles.css et app.js à la racine du projet.  
+3. Ouvrir index.html dans un navigateur moderne (Chrome, Edge, Firefox).  
+4. Vérifier :
+   - Bibliothèque → ouvrir un exercice → animation SVG visible.
+   - Tableau → ajouter une pesée → pesée enregistrée et visible.
+   - Importer démo → profils et séances remplis.
+   - Export CSV → téléchargement du fichier CSV.
 
-### 1) Échauffement — 5 min
-1. **Cercles de bras — 30s**  
-   - Position : debout, pieds largeur hanches, bras tendus sur les côtés.  
-   - Mouvement : petits cercles lents, puis élargis. Respire normalement.  
-2. **Marche sur place — 2 min**  
-   - Monter légèrement les genoux, balancer les bras, cadence confortable.  
-3. **Flexions douces des genoux (assise/debout) — 1 min**  
-   - Main sur la chaise pour stabilité, plier légèrement les genoux 10–12x.  
-4. **Respiration profonde — 1 min**  
-   - Inspirer 3s par le nez, expirer 4s par la bouche.
+## Déploiement via GitHub Pages
+1. Pousser les fichiers sur la branche main.  
+2. Dans GitHub, Settings → Pages → Branch: main, Folder: / → Save.  
+3. Attendre l’URL fournie par GitHub Pages puis ouvrir pour vérifier la démo en ligne.
 
----
+## Personnalisation
+- Remplacer animations SVG par vidéos locales MP4 : déposer les MP4 dans /media et adapter la fonction renderAnimation dans app.js.  
+- Modifier les textes d’exercices ou programmes dans app.js (tableau defaultExercises/defaultPrograms).  
+- Séparer davantage CSS/JS ou ajouter bundler si tu souhaites pipeline de build.
 
-### 2) Renforcement — 10 min
-Pour chaque exercice : 2 séries (sauf mention), tempo = 2s descente / 1s montée.
+## Tests utilisateurs recommandés
+- 3 cycles de tests avec 5 utilisateurs seniors : lisibilité, compréhension des consignes, taille des contrôles, impression des fiches.  
+- Priorité d’itération : orthographe et clarté des consignes, accessibilité (contraste et tailles), retours sur les variantes.
 
-#### Squats avec chaise — 2 x 10
-- Position : face à la chaise, pieds largeur hanches.  
-- Mouvement : descendre lentement jusqu'à toucher légèrement l'assise, remonter sans verrouiller les genoux.  
-- Variante facile : s’asseoir puis se relever avec les mains sur la chaise.  
-- Vidéo démonstration : https://www.youtube.com/watch?v=eucJLuduawQ  
-[![Voir la démo squat](https://img.youtube.com/vi/eucJLuduawQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=eucJLuduawQ)
-
-#### Pompes murales — 2 x 10
-- Position : mains contre le mur, corps incliné, pieds reculés.  
-- Mouvement : descendre le torse vers le mur puis pousser. Garde le dos droit.  
-- Variante : rapprocher les pieds pour faciliter.  
-- Vidéo démonstration : https://www.youtube.com/watch?v=OBn81SkwFtk  
-[![Voir la démo pompes murales](https://img.youtube.com/vi/OBn81SkwFtk/maxresdefault.jpg)](https://www.youtube.com/watch?v=OBn81SkwFtk)
-
-#### Élévations des talons — 2 x 15
-- Position : debout, se tenir à une chaise pour l'équilibre.  
-- Mouvement : monter sur la pointe des pieds, maintenir 1s, redescendre lentement.  
-- Vidéo démonstration : https://www.youtube.com/watch?v=3b8DkywSYoY  
-[![Voir la démo élévations talons](https://img.youtube.com/vi/3b8DkywSYoY/maxresdefault.jpg)](https://www.youtube.com/watch?v=3b8DkywSYoY)
-
-#### Étirement bras/jambes — 2 min
-- Étirements doux : bras croisés poitrine, quadriceps léger (se tenir), ischio-jambiers assis.
-
----
-
-### 3) Retour au calme — 5 min
-1. **Respiration + étirement du dos — 3 min**  
-   - Assis, mains sur les cuisses, arrondir puis creuser le dos, respirer lentement.  
-2. **Musique douce — 2 min (optionnel)**  
-   - Marcher doucement sur place ou rester assis, respirations profondes.
-
----
-
-## Conseils techniques et sécurité
-- Tester l’équilibre près d’une chaise/mur.  
-- Ne jamais retenir la respiration pendant un effort.  
-- Commencer 2–3 fois par semaine, augmenter progressivement.  
-- Si tension ou douleur persistante : consulter un professionnel de santé.
-
----
-
-## Adaptations rapides
-- Genoux sensibles : réduire amplitude, faire versions assises.  
-- Faiblesse de bras : réduire répétitions ou augmenter support (plus proche du mur).  
-- Objectif cardio : augmenter marche sur place à 4 min.
-
----
-
-## Résumé imprimable (1 page)
-- Échauffement 5 min : Cercles bras 30s; Marche 2 min; Flexions 1 min; Respiration 1 min.  
-- Renfo 10 min : Squats 2x10; Pompes murales 2x10; Talons 2x15; Étirements 2 min.  
-- Retour calme 5 min : Respiration/étirements 5 min.  
-- Rappel : tempo lent, pause 30–60s, stop douleur.
-
----
-
-## Feedback recherché (répondre en 1 mot)
-- Lisibilité : utile / confus  
-- Durée : trop long / correct / trop court  
-- Sécurité : OK / risqué  
-- Test mobile : oui / non
-
-Merci pour vos retours — je mets à jour en fonction des remarques.
+## Commandes Git utiles
+```bash
+git add .
+git commit -m "Mise à jour README.md et ajout prototype FitCoach60plus"
+git push origin main
