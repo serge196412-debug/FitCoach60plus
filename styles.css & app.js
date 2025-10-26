@@ -1,3 +1,10 @@
+/* Accessibilité: skip link, focus et utilitaires */
+.skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip-link:focus{position:static;left:8px;top:8px;background:#fff;padding:8px;border:2px solid var(--accent);z-index:999;}
+:focus{outline:3px solid #ffbf47;outline-offset:3px}
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+nav button, .btn-ghost, .cta, .success, .danger{min-height:44px;min-width:44px}
+:root{ --muted:#3b5451 } /* contraste amélioré pour textes secondaires */
 :root{
   --bg:#f7fbfa; --card:#ffffff; --accent:#2b8a7a; --muted:#4f6360;
   --danger:#d9534f; --ok:#28a745; --radius:12px; --gap:14px;
