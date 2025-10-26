@@ -37,15 +37,12 @@ let state = {
   weights:[], sessions:[], exercises: defaultExercises, programs: defaultPrograms
 };
 
-/* Storage */
-function saveState(){ localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); updateUI(); showToast('Données locales sauvegardées'); }
-function loadState(){ const s = localStorage.getItem(STORAGE_KEY); if(s) state = JSON.parse(s); updateUI(); }
-function resetState(){ if(confirm('Réinitialiser les données locales ?')){ localStorage.removeItem(STORAGE_KEY); state = {profile:{name:'',birth:1958,weight:null,goal:null,issues:[]},weights:[],sessions:[],exercises:defaultExercises,programs:defaultPrograms}; saveState(); showToast('Réinitialisé.'); }}
+/* === Accessibility / Navigation helpers (commit-ready) === */
 
-/* Accessible toast and focus helpers */
+/* Accessible toast remplaçant alert */
 function showToast(msg){
   const t = document.getElementById('toast');
-  if(!t){ alert(msg); return; }
+  if(!t){ console.log('Toast:', msg); return; }
   t.textContent = msg;
   t.classList.remove('visually-hidden');
   t.setAttribute('role','status');
@@ -54,22 +51,42 @@ function showToast(msg){
   t._hide = setTimeout(()=>{ t.classList.add('visually-hidden'); },3500);
 }
 
-const viewArea = document.getElementById('view-area');
+/* Active la nav et met le focus sur la zone de contenu */
+function activateNav(id){
+  try{
+    document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+    const btn = document.getElementById(id);
+    if(btn) btn.classList.add('active');
+    const main = document.getElementById('view-area');
+    if(main){ main.setAttribute('tabindex','-1'); main.focus(); }
+  }catch(e){
+    console.warn('activateNav error', e);
+  }
+}
 
+/* Place le focus sur le titre principal après rendu */
 function focusMainHeading(){
-  if(!viewArea) return;
-  const h = viewArea.querySelector('h3, h2, h1');
+  const view = document.getElementById('view-area');
+  if(!view) return;
+  const h = view.querySelector('h3, h2, h1');
   if(h){ h.setAttribute('tabindex','-1'); h.focus(); }
 }
 
+/* Storage */
+function saveState(){ localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); updateUI(); showToast('Données locales sauvegardées'); }
+function loadState(){ const s = localStorage.getItem(STORAGE_KEY); if(s) state = JSON.parse(s); updateUI(); }
+function resetState(){ if(confirm('Réinitialiser les données locales ?')){ localStorage.removeItem(STORAGE_KEY); state = {profile:{name:'',birth:1958,weight:null,goal:null,issues:[]},weights:[],sessions:[],exercises:defaultExercises,programs:defaultPrograms}; saveState(); showToast('Réinitialisé.'); }}
+
 /* Rendering */
+const viewArea = document.getElementById('view-area');
+
 function renderLanding(){ viewArea.innerHTML = `
   <h2 style="margin-top:0">Bienvenue sur FitCoach 60+</h2>
   <p class="small">Programmes adaptés aux contraintes articulaires. Exercices sans appui sur les mains, expliqués en texte clair et par une animation.</p>
   <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
-    <button class="cta" onclick="showProfile()">Créer mon profil</button>
-    <button class="btn-ghost" onclick="showPrograms()">Voir les programmes</button>
-    <button class="btn-ghost" onclick="showExercises()">Bibliothèque d'exercices</button>
+    <button class="cta" onclick="activateNav('nav-profile'); showProfile()">Créer mon profil</button>
+    <button class="btn-ghost" onclick="activateNav('nav-prog'); showPrograms()">Voir les programmes</button>
+    <button class="btn-ghost" onclick="activateNav('nav-ex'); showExercises()">Bibliothèque d'exercices</button>
   </div>
 
   <div style="margin-top:14px" class="features">
@@ -227,7 +244,9 @@ function startQuick(key){
   const kits = {'matin':[11,4,8],'rando':[1,3,7,12],'soir':[12,4,20]};
   const arr = kits[key] || [1,4];
   const total = arr.map(i=>state.exercises.find(e=>e.id===i)?.dur||5).reduce((a,b)=>a+b,0);
-  state.sessions.push({date:new Date().toISOString(),programId:'kit-'+key,duration:total,exCount:arr.length,notes:'Kit '+key}); saveState(); showToast('Kit lancé — durée approximative ' + total + ' min');
+  state.sessions.push({date:new Date().toISOString(),programId:'kit-'+key,duration:total,exCount:arr.length,notes:'Kit '+key});
+  saveState();
+  showToast('Kit lancé — durée approximative ' + total + ' min');
 }
 
 function startDemo(){ const exs = [1,2,4,5]; const total = exs.map(i=>state.exercises.find(e=>e.id===i).dur).reduce((a,b)=>a+b,0); state.sessions.push({date:new Date().toISOString(),programId:'demo',duration:total,exCount:exs.length,notes:'Session démo'}); saveState(); showToast('Session démo ajoutée — ' + total + ' min'); }
@@ -301,10 +320,28 @@ document.addEventListener('click', (e)=>{
   if(t.id==='reset-state') resetState();
 });
 
-/* Animation engine and svg generators */
+/* renderAnimation: supporte SVG et video via préfixe "video:" */
 function renderAnimation(key, container){
   if(!container) return;
-  const svgMap = { walk: walkSVG(), lunge: lungeSVG(), sideleg: sideLegSVG(), twist: twistSVG(), squat: squatSVG(),
+  if(typeof key === 'string' && key.startsWith('video:')){
+    const src = key.slice(6).trim();
+    let embed = src;
+    try{
+      if(src.includes('youtube.com/watch')){
+        const id = new URL(src).searchParams.get('v');
+        if(id) embed = `https://www.youtube.com/embed/${id}?rel=0`;
+      } else if(src.includes('youtu.be/')){
+        const id = src.split('youtu.be/').pop().split(/[?#]/)[0];
+        embed = `https://www.youtube.com/embed/${id}?rel=0`;
+      }
+    }catch(e){
+      console.warn('renderAnimation video parse', e);
+    }
+    container.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center"><iframe src="${embed}" title="Démonstration exercice" style="width:100%;height:100%;border:0;border-radius:8px" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+    return;
+  }
+  const svgMap = {
+    walk: walkSVG(), lunge: lungeSVG(), sideleg: sideLegSVG(), twist: twistSVG(), squat: squatSVG(),
     heel: heelSVG(), calf: calfSVG(), heeltoe: heelToeSVG(), bridge: bridgeSVG(), knee: kneeSVG(), neck: neckSVG(),
     breath: breathSVG(), half_lunge: lungeSVG(), step: stepSVG(), adduct: adductSVG(), shoulder: shoulderSVG(),
     walkheels: walkSVG(), push_heel: bridgeSVG(), sidebridge: sideBridgeSVG(), stretch_back: stretchBackSVG()
@@ -316,7 +353,7 @@ function renderAnimation(key, container){
 function iconFor(cat){ if(cat==='Cardio') return '🏃'; if(cat==='Renforcement') return '🦵'; if(cat==='Mobilité') return '🔄'; if(cat==='Équilibre') return '⚖️'; if(cat==='Récupération') return '🧘'; return '💪'; }
 function escapeHtml(str){ if(!str) return ''; return String(str).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])); }
 
-/* Minimal SVG generators (copy the same shapes as the prototype) */
+/* Minimal SVG generators */
 function walkSVG(){ return `<svg viewBox="0 0 240 140" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" rx="8" fill="#fbfffe"/><g transform="translate(40,70)"><circle cx="0" cy="-30" r="10" fill="#2b8a7a" /><rect x="-6" y="-20" width="12" height="30" rx="4" fill="#2b8a7a" /><line x1="-6" y1="10" x2="-18" y2="30" stroke="#2b8a7a" stroke-width="6" stroke-linecap="round"><animate attributeName="x2" values="-18;-12;-18" dur="1s" repeatCount="indefinite"/><animate attributeName="y2" values="30;24;30" dur="1s" repeatCount="indefinite"/></line><line x1="6" y1="10" x2="18" y2="30" stroke="#2b8a7a" stroke-width="6" stroke-linecap="round"><animate attributeName="x2" values="18;12;18" dur="1s" repeatCount="indefinite"/><animate attributeName="y2" values="30;24;30" dur="1s" repeatCount="indefinite"/></line></g><text x="130" y="120" fill="#617075" font-size="12">Marche sur place · rythme modéré</text></svg>`;}
 function lungeSVG(){ return `<svg viewBox="0 0 240 140" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" rx="8" fill="#fbfffe"/><g transform="translate(40,60)"><circle cx="0" cy="-30" r="10" fill="#2b8a7a"/><rect x="-6" y="-20" width="12" height="30" rx="4" fill="#2b8a7a"/><line x1="-6" y1="10" x2="-6" y2="40" stroke="#2b8a7a" stroke-width="8" stroke-linecap="round"><animate attributeName="y2" values="40;28;40" dur="1s" repeatCount="indefinite"/></line><line x1="6" y1="10" x2="28" y2="30" stroke="#2b8a7a" stroke-width="8" stroke-linecap="round"/></g><text x="130" y="120" fill="#617075" font-size="12">Fente arrière — contrôlez l’amplitude</text></svg>`;}
 function sideLegSVG(){ return `<svg viewBox="0 0 240 140" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" rx="8" fill="#fbfffe"/><g transform="translate(60,70)"><circle cx="0" cy="-30" r="10" fill="#2b8a7a"/><rect x="-6" y="-20" width="12" height="30" rx="4" fill="#2b8a7a"/><line x1="6" y1="10" x2="34" y2="10" stroke="#2b8a7a" stroke-width="8" stroke-linecap="round"><animate attributeName="x2" values="34;20;34" dur="1s" repeatCount="indefinite"/></line></g><text x="130" y="120" fill="#617075" font-size="12">Élévation latérale — maintien du buste</text></svg>`;}
@@ -340,3 +377,4 @@ loadState(); renderLanding(); updateUI();
 
 /* Expose for debugging */
 window.startQuick = startQuick; window.addToToday = addToToday; window.openExercise = openExercise;
+
