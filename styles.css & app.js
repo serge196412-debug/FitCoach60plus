@@ -1,12 +1,5 @@
-/* Accessibilité: skip link, focus et utilitaires */
-.skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
-.skip-link:focus{position:static;left:8px;top:8px;background:#fff;padding:8px;border:2px solid var(--accent);z-index:999;}
-:focus{outline:3px solid #ffbf47;outline-offset:3px}
-.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-nav button, .btn-ghost, .cta, .success, .danger{min-height:44px;min-width:44px}
-:root{ --muted:#3b5451 } /* contraste amélioré pour textes secondaires */
 :root{
-  --bg:#f7fbfa; --card:#ffffff; --accent:#2b8a7a; --muted:#4f6360;
+  --bg:#f7fbfa; --card:#ffffff; --accent:#2b8a7a; --muted:#3b5451;
   --danger:#d9534f; --ok:#28a745; --radius:12px; --gap:14px;
   font-family:Inter,system-ui,Helvetica,Arial;
 }
@@ -50,6 +43,14 @@ canvas{width:100%;height:160px}
 @media(max-width:520px){.features{grid-template-columns:1fr}}
 @media print{nav,.cta,.btn-ghost,.success,.danger{display:none} body{background:#fff} .card{box-shadow:none}}
 .svg-demo{width:240px;height:140px;background:#fbfffe;border-radius:10px;padding:8px;display:flex;align-items:center;justify-content:center}
+
+/* Accessibilité: skip link, focus et utilitaires */
+.skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip-link:focus{position:static;left:8px;top:8px;background:#fff;padding:8px;border:2px solid var(--accent);z-index:999;}
+:focus{outline:3px solid #ffbf47;outline-offset:3px}
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+nav button, .btn-ghost, .cta, .success, .danger{min-height:44px;min-width:44px}
+
 /* Data */
 const defaultExercises = [
   {id:1,name:"Marche sur place",cat:"Cardio",dur:10,desc:"Cardio doux — 10 minutes",anim:"walk"},
@@ -90,35 +91,31 @@ let state = {
 };
 
 /* Storage */
-function saveState(){ localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); updateUI(); }
+function saveState(){ localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); updateUI(); showToast('Données locales sauvegardées'); }
 function loadState(){ const s = localStorage.getItem(STORAGE_KEY); if(s) state = JSON.parse(s); updateUI(); }
-function resetState(){ if(confirm('Réinitialiser les données locales ?')){ localStorage.removeItem(STORAGE_KEY); state = {profile:{name:'',birth:1958,weight:null,goal:null,issues:[]},weights:[],sessions:[],exercises:defaultExercises,programs:defaultPrograms}; saveState(); alert('Réinitialisé.'); }}
+function resetState(){ if(confirm('Réinitialiser les données locales ?')){ localStorage.removeItem(STORAGE_KEY); state = {profile:{name:'',birth:1958,weight:null,goal:null,issues:[]},weights:[],sessions:[],exercises:defaultExercises,programs:defaultPrograms}; saveState(); showToast('Réinitialisé.'); }}
 
-/* Toast accessible remplaçant alert */
+/* Accessible toast and focus helpers */
 function showToast(msg){
   const t = document.getElementById('toast');
   if(!t){ alert(msg); return; }
   t.textContent = msg;
   t.classList.remove('visually-hidden');
   t.setAttribute('role','status');
-  t.focus?.();
+  t.focus();
   clearTimeout(t._hide);
   t._hide = setTimeout(()=>{ t.classList.add('visually-hidden'); },3500);
 }
 
-/* focus sur le titre principal après render */
+const viewArea = document.getElementById('view-area');
+
 function focusMainHeading(){
+  if(!viewArea) return;
   const h = viewArea.querySelector('h3, h2, h1');
   if(h){ h.setAttribute('tabindex','-1'); h.focus(); }
 }
 
-/* Remplacer les alert(...) existants par showToast(...) -- exemples */
-function saveState(){ localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); updateUI(); showToast('Données locales sauvegardées'); }
-function resetState(){ if(confirm('Réinitialiser les données locales ?')){ localStorage.removeItem(STORAGE_KEY); state = {profile:{name:'',birth:1958,weight:null,goal:null,issues:[]},weights:[],sessions:[],exercises:defaultExercises,programs:defaultPrograms}; saveState(); showToast('Réinitialisé.'); }}
-/* Et remplacer alert(...) dans addToToday, startDemo, startProgram, saveWeight, saveProfile, importDemo, exportCSV par showToast(...) */
 /* Rendering */
-const viewArea = document.getElementById('view-area');
-
 function renderLanding(){ viewArea.innerHTML = `
   <h2 style="margin-top:0">Bienvenue sur FitCoach 60+</h2>
   <p class="small">Programmes adaptés aux contraintes articulaires. Exercices sans appui sur les mains, expliqués en texte clair et par une animation.</p>
@@ -142,17 +139,17 @@ function renderLanding(){ viewArea.innerHTML = `
       <div style="margin-top:8px"><button class="cta" onclick="startDemo()">Lancer la démo</button></div>
     </div>
   </div>
-`; }
+`; focusMainHeading(); }
 
 function showExercises(){
   const ex = state.exercises;
   viewArea.innerHTML = `<h3 style="margin-top:0">Bibliothèque d'exercices</h3>
     <div class="list">
       ${ex.map(e=>`
-        <div class="card ex-row" aria-label="${e.name}">
+        <div class="card ex-row" role="region" aria-label="${e.name}">
           <div class="ex-ico">${iconFor(e.cat)}</div>
           <div style="flex:1">
-            <strong>${e.name}</strong>
+            <strong id="ex-${e.id}-title">${e.name}</strong>
             <div class="small">${e.desc} · ${e.dur} min</div>
             <div style="margin-top:8px;display:flex;gap:8px">
               <button class="btn-ghost" data-ex="${e.id}">Voir</button>
@@ -162,6 +159,7 @@ function showExercises(){
         </div>
       `).join('')}
     </div>`;
+  focusMainHeading();
 }
 
 function showPrograms(){
@@ -170,6 +168,7 @@ function showPrograms(){
     <div class="prog-list">
       ${p.map(pr=>`<div class="prog-item"><div><strong>${pr.name}</strong><div class="small">${pr.desc}</div></div><div style="display:flex;gap:8px"><button class="btn-ghost" data-view="${pr.id}">Ouvrir</button><button class="btn-ghost" data-start="${pr.id}">Lancer</button></div></div>`).join('')}
     </div>`;
+  focusMainHeading();
 }
 
 function showDashboard(){
@@ -203,7 +202,7 @@ function showDashboard(){
         </div>
       </div>
     </div>`;
-  renderWeightChart(); renderSessionList();
+  renderWeightChart(); renderSessionList(); focusMainHeading();
 }
 
 function showProfile(){
@@ -221,12 +220,13 @@ function showProfile(){
         <div style="margin-top:8px;display:flex;gap:8px"><button class="btn-ghost" id="reset-state">Réinitialiser tout</button><button class="btn-ghost" id="export-csv">Exporter CSV</button></div>
       </div>
     </div>`;
+  focusMainHeading();
 }
 
 /* Program and exercise views */
 function viewProgram(id){
   const pr = state.programs.find(p=>p.id===id);
-  if(!pr) return alert('Programme introuvable');
+  if(!pr) return showToast('Programme introuvable');
   const exs = pr.ex.map(i=>state.exercises.find(e=>e.id===i)).filter(Boolean);
   viewArea.innerHTML = `<h3 style="margin-top:0">${pr.name}</h3>
     <div class="small">${pr.desc}</div>
@@ -234,11 +234,12 @@ function viewProgram(id){
       ${exs.map(e=>`<div class="card ex-row"><div class="ex-ico">${iconFor(e.cat)}</div><div><strong>${e.name}</strong><div class="small">${e.desc} · ${e.dur} min</div><div style="margin-top:8px"><button class="btn-ghost" data-exopen="${e.id}">Voir</button></div></div></div>`).join('')}
     </div>
     <div style="margin-top:10px"><button class="cta" data-startprog="${pr.id}">Lancer ce programme</button></div>`;
+  focusMainHeading();
 }
 
 function openExercise(id){
   const e = state.exercises.find(x=>x.id===id);
-  if(!e) return alert('Exercice introuvable');
+  if(!e) return showToast('Exercice introuvable');
   viewArea.innerHTML = `<h3 style="margin-top:0">${e.name}</h3>
     <div class="small">${e.desc} · ${e.dur} min</div>
     <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
@@ -264,30 +265,31 @@ function openExercise(id){
 
       <div style="width:260px" class="card small">
         <strong>Animation</strong>
-        <div style="margin-top:8px" id="anim-${e.id}" class="svg-demo"></div>
+        <div style="margin-top:8px" id="anim-${e.id}" class="svg-demo" aria-hidden="true"></div>
       </div>
     </div>
   `;
   renderAnimation(e.anim, document.getElementById('anim-'+e.id));
+  focusMainHeading();
 }
 
 /* Actions */
-function addToToday(exId){ const ex = state.exercises.find(e=>e.id===exId); if(!ex) return; const s = {date:new Date().toISOString(),programId:'manual',duration:ex.dur,exCount:1,notes:ex.name}; state.sessions.push(s); saveState(); alert('Séance ajoutée : ' + ex.name); }
+function addToToday(exId){ const ex = state.exercises.find(e=>e.id===exId); if(!ex) return showToast('Exercice introuvable'); const s = {date:new Date().toISOString(),programId:'manual',duration:ex.dur,exCount:1,notes:ex.name}; state.sessions.push(s); saveState(); showToast('Séance ajoutée : ' + ex.name); }
 
 function startQuick(key){
   const kits = {'matin':[11,4,8],'rando':[1,3,7,12],'soir':[12,4,20]};
   const arr = kits[key] || [1,4];
   const total = arr.map(i=>state.exercises.find(e=>e.id===i)?.dur||5).reduce((a,b)=>a+b,0);
-  state.sessions.push({date:new Date().toISOString(),programId:'kit-'+key,duration:total,exCount:arr.length,notes:'Kit '+key}); saveState(); alert('Kit lancé — durée approximative ' + total + ' min');
+  state.sessions.push({date:new Date().toISOString(),programId:'kit-'+key,duration:total,exCount:arr.length,notes:'Kit '+key}); saveState(); showToast('Kit lancé — durée approximative ' + total + ' min');
 }
 
-function startDemo(){ const exs = [1,2,4,5]; const total = exs.map(i=>state.exercises.find(e=>e.id===i).dur).reduce((a,b)=>a+b,0); state.sessions.push({date:new Date().toISOString(),programId:'demo',duration:total,exCount:exs.length,notes:'Session démo'}); saveState(); alert('Session démo ajoutée — ' + total + ' min'); }
+function startDemo(){ const exs = [1,2,4,5]; const total = exs.map(i=>state.exercises.find(e=>e.id===i).dur).reduce((a,b)=>a+b,0); state.sessions.push({date:new Date().toISOString(),programId:'demo',duration:total,exCount:exs.length,notes:'Session démo'}); saveState(); showToast('Session démo ajoutée — ' + total + ' min'); }
 
-function startProgram(id){ const pr = state.programs.find(p=>p.id===id); if(!pr) return alert('Programme introuvable'); const total = pr.ex.map(i=>state.exercises.find(e=>e.id===i).dur||5).reduce((a,b)=>a+b,0); state.sessions.push({date:new Date().toISOString(),programId:id,duration:total,exCount:pr.ex.length,notes:pr.name}); saveState(); alert('Programme lancé : ' + pr.name + ' — durée ' + total + ' min'); }
+function startProgram(id){ const pr = state.programs.find(p=>p.id===id); if(!pr) return showToast('Programme introuvable'); const total = pr.ex.map(i=>state.exercises.find(e=>e.id===i).dur||5).reduce((a,b)=>a+b,0); state.sessions.push({date:new Date().toISOString(),programId:id,duration:total,exCount:pr.ex.length,notes:pr.name}); saveState(); showToast('Programme lancé : ' + pr.name + ' — durée ' + total + ' min'); }
 
 /* Weight handling and charts */
-function saveWeight(){ const v = parseFloat(document.getElementById('input-weight').value); if(!v || v<20 || v>250) return alert('Poids invalide'); state.weights.push({date:new Date().toISOString(),kg:Math.round(v*10)/10}); state.profile.weight = v; saveState(); alert('Pesée ajoutée : ' + v + ' kg'); showDashboard(); }
-function saveGoal(){ const v = parseFloat(document.getElementById('input-goal').value); if(!v || v<30 || v>200) return alert('Objectif invalide'); state.profile.goal = v; saveState(); alert('Objectif enregistré : ' + v + ' kg'); showDashboard(); }
+function saveWeight(){ const v = parseFloat(document.getElementById('input-weight').value); if(!v || v<20 || v>250) return showToast('Poids invalide'); state.weights.push({date:new Date().toISOString(),kg:Math.round(v*10)/10}); state.profile.weight = v; saveState(); showToast('Pesée ajoutée : ' + v + ' kg'); showDashboard(); }
+function saveGoal(){ const v = parseFloat(document.getElementById('input-goal').value); if(!v || v<30 || v>200) return showToast('Objectif invalide'); state.profile.goal = v; saveState(); showToast('Objectif enregistré : ' + v + ' kg'); showDashboard(); }
 function renderWeightChart(){ const canvas = document.getElementById('chart-weight'); if(!canvas) return; const ctx = canvas.getContext('2d'); ctx.clearRect(0,0,canvas.width,canvas.height); const data = state.weights.slice(-20); if(data.length < 2){ ctx.fillStyle = '#f1fffc'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.fillStyle = '#617075'; ctx.font='14px sans-serif'; ctx.fillText('Ajoute des pesées pour afficher le graphique',20,40); return; } const pad = 30; const w = canvas.width - pad*2; const h = canvas.height - pad*2; const vals = data.map(d=>d.kg); const min = Math.min(...vals)-1; const max = Math.max(...vals)+1; ctx.strokeStyle = '#2b8a7a'; ctx.lineWidth = 2; ctx.beginPath(); data.forEach((d,i)=>{ const x = pad + (i/(data.length-1))*w; const y = pad + (1 - (d.kg-min)/(max-min))*h; if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); ctx.fillStyle='#2b8a7a'; ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2); ctx.fill(); }); ctx.stroke(); ctx.fillStyle='#617075'; ctx.font='12px sans-serif'; ctx.fillText(min.toFixed(1)+' kg',10,canvas.height-8); ctx.fillText(max.toFixed(1)+' kg',10,18); }
 
 /* Sessions list */
@@ -295,21 +297,21 @@ function renderSessionList(){ const el = document.getElementById('session-list')
 function removeSession(dateIso){ state.sessions = state.sessions.filter(s=>s.date!==dateIso); saveState(); }
 
 /* Profile */
-function saveProfile(){ const name = document.getElementById('p-name').value.trim(); const birth = parseInt(document.getElementById('p-birth').value,10) || 1958; const goal = parseFloat(document.getElementById('p-goal').value) || null; const issues = document.getElementById('p-issues').value.split(',').map(s=>s.trim()).filter(Boolean); state.profile = {name,birth,weight:state.profile.weight||null,goal,issues}; saveState(); alert('Profil sauvegardé'); }
+function saveProfile(){ const name = document.getElementById('p-name').value.trim(); const birth = parseInt(document.getElementById('p-birth').value,10) || 1958; const goal = parseFloat(document.getElementById('p-goal').value) || null; const issues = document.getElementById('p-issues').value.split(',').map(s=>s.trim()).filter(Boolean); state.profile = {name,birth,weight:state.profile.weight||null,goal,issues}; saveState(); showToast('Profil sauvegardé'); }
 function resetProfile(){ state.profile = {name:'',birth:1958,weight:null,goal:null,issues:[]}; saveState(); showProfile(); }
 
 /* Export / Demo */
-function exportCSV(){ let csv = 'type;date;kg;duration;exCount;notes\n'; state.weights.forEach(w=> csv += `weight;${w.date};${w.kg};;;;\n`); state.sessions.forEach(s=> csv += `session;${s.date};;${s.duration};${s.exCount};${s.notes}\n`); const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'fitcoach60_export.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); }
-function importDemo(){ if(!confirm('Importer données de démonstration ?')) return; state.weights = [{date:new Date(Date.now()-12*24*3600e3).toISOString(),kg:75.2},{date:new Date(Date.now()-9*24*3600e3).toISOString(),kg:74.8},{date:new Date(Date.now()-6*24*3600e3).toISOString(),kg:74.2},{date:new Date(Date.now()-3*24*3600e3).toISOString(),kg:73.6}]; state.sessions = [{date:new Date(Date.now()-10*24*3600e3).toISOString(),programId:'deb',duration:22,exCount:4,notes:'Séance démo'},{date:new Date(Date.now()-7*24*3600e3).toISOString(),programId:'rando',duration:28,exCount:4,notes:'Prépa rando'},{date:new Date(Date.now()-2*24*3600e3).toISOString(),programId:'perte',duration:30,exCount:4,notes:'Cardio léger'}]; state.profile = {...state.profile,name:'Serge',birth:1958,goal:70,issues:['poignets','dos']}; saveState(); alert('Données de démonstration importées'); }
+function exportCSV(){ let csv = 'type;date;kg;duration;exCount;notes\n'; state.weights.forEach(w=> csv += `weight;${w.date};${w.kg};;;;\n`); state.sessions.forEach(s=> csv += `session;${s.date};;${s.duration};${s.exCount};${s.notes}\n`); const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'fitcoach60_export.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); showToast('Export CSV généré'); }
+function importDemo(){ if(!confirm('Importer données de démonstration ?')) return; state.weights = [{date:new Date(Date.now()-12*24*3600e3).toISOString(),kg:75.2},{date:new Date(Date.now()-9*24*3600e3).toISOString(),kg:74.8},{date:new Date(Date.now()-6*24*3600e3).toISOString(),kg:74.2},{date:new Date(Date.now()-3*24*3600e3).toISOString(),kg:73.6}]; state.sessions = [{date:new Date(Date.now()-10*24*3600e3).toISOString(),programId:'deb',duration:22,exCount:4,notes:'Séance démo'},{date:new Date(Date.now()-7*24*3600e3).toISOString(),programId:'rando',duration:28,exCount:4,notes:'Prépa rando'},{date:new Date(Date.now()-2*24*3600e3).toISOString(),programId:'perte',duration:30,exCount:4,notes:'Cardio léger'}]; state.profile = {...state.profile,name:'Serge',birth:1958,goal:70,issues:['poignets','dos']}; saveState(); showToast('Données de démonstration importées'); }
 
 /* UI helpers */
-function updateUI(){ document.getElementById('stat-weight').textContent = state.profile.weight ? state.profile.weight+' kg' : '-- kg'; document.getElementById('stat-sess').textContent = (countSessionsWeek())+' / sem'; document.getElementById('stat-balance').textContent = computeBalanceScore(); document.getElementById('stat-goal').textContent = state.profile.goal ? state.profile.goal+' kg' : '-- kg'; const c = document.getElementById('chart-weight'); if(c) renderWeightChart(); const sl = document.getElementById('session-list'); if(sl) renderSessionList(); }
+function updateUI(){ const statW = document.getElementById('stat-weight'); if(statW) statW.textContent = state.profile.weight ? state.profile.weight+' kg' : '-- kg'; const statS = document.getElementById('stat-sess'); if(statS) statS.textContent = (countSessionsWeek())+' / sem'; const statB = document.getElementById('stat-balance'); if(statB) statB.textContent = computeBalanceScore(); const statG = document.getElementById('stat-goal'); if(statG) statG.textContent = state.profile.goal ? state.profile.goal+' kg' : '-- kg'; const c = document.getElementById('chart-weight'); if(c) renderWeightChart(); const sl = document.getElementById('session-list'); if(sl) renderSessionList(); }
 function countSessionsWeek(){ const week = Date.now() - 7*24*3600e3; return state.sessions.filter(s=> new Date(s.date).getTime() >= week ).length; }
 function computeBalanceScore(){ const recent = state.sessions.slice(-30); return Math.min(10, Math.round(countSessionsWeek()*1.2 + recent.length*0.1)) + ' pts'; }
-function clearSessions(){ if(confirm('Supprimer toutes les séances ?')){ state.sessions = []; saveState(); } }
+function clearSessions(){ if(confirm('Supprimer toutes les séances ?')){ state.sessions = []; saveState(); showToast('Séances supprimées'); } }
 
 /* Print */
-function printExercise(id){ const e = state.exercises.find(x=>x.id===id); if(!e) return; const w = window.open('','_blank'); const html = `
+function printExercise(id){ const e = state.exercises.find(x=>x.id===id); if(!e) return showToast('Exercice introuvable'); const w = window.open('','_blank'); const html = `
 <html><head><meta charset="utf-8"><title>${e.name}</title>
 <style>body{font-family:sans-serif;padding:18px;color:#07211f} .card{border-radius:8px;padding:12px;border:1px solid #e6f6f3;margin-top:8px}</style>
 </head><body>
@@ -342,7 +344,7 @@ document.addEventListener('click', (e)=>{
   if(t.dataset && t.dataset.print) printExercise(Number(t.dataset.print));
   if(t.dataset && t.dataset.remove) removeSession(t.dataset.remove);
 
-  if(t.id==='btn-export' || t.id==='export-csv') exportCSV();
+  if(t.id==='btn-export' || t.id==='export-csv' || t.id==='btn-export') exportCSV();
   if(t.id==='btn-demo' || t.id==='btn-demo') importDemo();
   if(t.id==='save-weight' || t.id==='save-weight') saveWeight();
   if(t.id==='save-goal' || t.id==='save-goal') saveGoal();
@@ -391,4 +393,3 @@ loadState(); renderLanding(); updateUI();
 
 /* Expose for debugging */
 window.startQuick = startQuick; window.addToToday = addToToday; window.openExercise = openExercise;
-```
