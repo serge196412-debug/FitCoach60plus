@@ -94,6 +94,28 @@ function saveState(){ localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); u
 function loadState(){ const s = localStorage.getItem(STORAGE_KEY); if(s) state = JSON.parse(s); updateUI(); }
 function resetState(){ if(confirm('Réinitialiser les données locales ?')){ localStorage.removeItem(STORAGE_KEY); state = {profile:{name:'',birth:1958,weight:null,goal:null,issues:[]},weights:[],sessions:[],exercises:defaultExercises,programs:defaultPrograms}; saveState(); alert('Réinitialisé.'); }}
 
+/* Toast accessible remplaçant alert */
+function showToast(msg){
+  const t = document.getElementById('toast');
+  if(!t){ alert(msg); return; }
+  t.textContent = msg;
+  t.classList.remove('visually-hidden');
+  t.setAttribute('role','status');
+  t.focus?.();
+  clearTimeout(t._hide);
+  t._hide = setTimeout(()=>{ t.classList.add('visually-hidden'); },3500);
+}
+
+/* focus sur le titre principal après render */
+function focusMainHeading(){
+  const h = viewArea.querySelector('h3, h2, h1');
+  if(h){ h.setAttribute('tabindex','-1'); h.focus(); }
+}
+
+/* Remplacer les alert(...) existants par showToast(...) -- exemples */
+function saveState(){ localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); updateUI(); showToast('Données locales sauvegardées'); }
+function resetState(){ if(confirm('Réinitialiser les données locales ?')){ localStorage.removeItem(STORAGE_KEY); state = {profile:{name:'',birth:1958,weight:null,goal:null,issues:[]},weights:[],sessions:[],exercises:defaultExercises,programs:defaultPrograms}; saveState(); showToast('Réinitialisé.'); }}
+/* Et remplacer alert(...) dans addToToday, startDemo, startProgram, saveWeight, saveProfile, importDemo, exportCSV par showToast(...) */
 /* Rendering */
 const viewArea = document.getElementById('view-area');
 
