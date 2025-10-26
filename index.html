@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FitCoach 60+</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="brand">
+      <div class="logo">FC</div>
+      <div>
+        <h1>FitCoach 60+</h1>
+        <div class="lead">Programmes sécurisés pour seniors — exercices sans appui sur les mains, explications claires et animations intégrées.</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="grid">
+    <section>
+      <div class="card" id="landing">
+        <nav>
+          <button id="nav-landing" class="active">Accueil</button>
+          <button id="nav-ex">Exercices</button>
+          <button id="nav-prog">Programmes</button>
+          <button id="nav-dashboard">Tableau</button>
+          <button id="nav-profile">Profil</button>
+        </nav>
+
+        <div id="view-area"></div>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="card">
+        <h3 style="margin:0 0 8px">Kits express</h3>
+        <div class="small">3 routines 7–12 min pour les jours pressés. Imprimables.</div>
+        <div style="margin-top:10px" class="list">
+          <div class="prog-item"><div><strong>Kit matin — 8 min</strong><div class="small">Mobilité + équilibre</div></div><button class="btn-ghost" data-kit="matin">Lancer</button></div>
+          <div class="prog-item"><div><strong>Kit rando — 10 min</strong><div class="small">Échauffement et récupération</div></div><button class="btn-ghost" data-kit="rando">Lancer</button></div>
+          <div class="prog-item"><div><strong>Kit soir — 7 min</strong><div class="small">Détente et lombaires</div></div><button class="btn-ghost" data-kit="soir">Lancer</button></div>
+        </div>
+      </div>
+    </section>
+
+    <aside>
+      <div class="card">
+        <h4 style="margin:0 0 8px">Aperçu rapide</h4>
+        <div class="stat-grid">
+          <div class="stat"><div style="font-size:18px;font-weight:700" id="stat-weight">-- kg</div><div class="small">Poids</div></div>
+          <div class="stat"><div style="font-size:18px;font-weight:700" id="stat-sess">-- / sem</div><div class="small">Séances</div></div>
+          <div class="stat"><div style="font-size:18px;font-weight:700" id="stat-balance">--</div><div class="small">Équilibre</div></div>
+          <div class="stat"><div style="font-size:18px;font-weight:700" id="stat-goal">-- kg</div><div class="small">Objectif</div></div>
+        </div>
+        <div style="margin-top:10px">
+          <button class="cta" id="open-quick">Commencer une séance</button>
+        </div>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="card small">
+        <strong>Témoignage</strong>
+        <div style="margin-top:8px">« Simple, clair et progressif. Je marche plus loin et sans douleur. » — Lucie, 67 ans</div>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="card small">
+        <strong>Exporter</strong>
+        <div style="margin-top:8px" class="small">Sauvegarde locale. Export CSV des pesées et séances.</div>
+        <div style="margin-top:10px;display:flex;gap:8px">
+          <button class="btn-ghost" id="btn-export">Export CSV</button>
+          <button class="btn-ghost" id="btn-demo">Importer démo</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="small">Prototype local corrigé — animations SVG pour chaque exercice intégrées.</div>
+  </footer>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
