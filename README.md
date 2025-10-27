@@ -1,54 +1,55 @@
-# FitCoach60plus
+# FitCoach 60+
 
-Prototype d'application web locale pour seniors 60+. Objectif : proposer des programmes sécurisés sans appui sur les mains, une bibliothèque de 20 exercices, 6 programmes, kits express, suivi du poids et animations explicatives intégrées.
+FitCoach 60+ est une appli interactive et simple pour les 60+.  
+Vidéos réelles intégrées pour chaque exercice, instructions courtes, minuterie par exercice avec pause et bouton +20 s, profil obligatoire pour activer un programme personnalisé, suivi local et export CSV.
 
-## But du projet
-Fournir un prototype autonome, simple à déployer et tester par des seniors ou des équipes locales, avec des consignes claires, des variantes sécurisées et des fiches imprimables.
+---
 
-## Fonctionnalités principales
-- Page d'accueil responsive et navigation simple
-- Bibliothèque de 20 exercices avec consignes françaises corrigées, variantes et animations SVG intégrées
-- 6 programmes prêts à l’emploi : débutant, marche nordique, mobilité, perte de poids, équilibre, avancé
-- Kits express pour séances courtes (matin, rando, soir)
-- Suivi du poids en localStorage et graphique simple
-- Enregistrement des séances, export CSV, fiches imprimables
-- Fonctionne hors‑ligne et sans dépendances externes
+## Déroulé utilisateur (rapide)
+1. Créer ton profil (âge, poids, limitations).  
+2. Activer un programme depuis l’onglet Profil ou Programmes.  
+3. Lancer une séance : chaque exercice affiche vidéo + consigne + minuterie + pause.  
+4. Ajouter des pesées, suivre les séances, exporter/importer CSV pour sauvegarde.
 
-## Arborescence recommandée
-- index.html
-- styles.css
-- app.js
-- README.md
-- .gitignore
-- /media (optionnel pour vidéos MP4 locales)
-- /assets/icons (optionnel pour SVG pictos)
+---
 
-## Installation et test local rapide
-1. Cloner le dépôt ou télécharger les fichiers.  
-2. Placer index.html, styles.css et app.js à la racine du projet.  
-3. Ouvrir index.html dans un navigateur moderne (Chrome, Edge, Firefox).  
-4. Vérifier :
-   - Bibliothèque → ouvrir un exercice → animation SVG visible.
-   - Tableau → ajouter une pesée → pesée enregistrée et visible.
-   - Importer démo → profils et séances remplis.
-   - Export CSV → téléchargement du fichier CSV.
+## Points forts
+- Profil d’abord : ton programme s’adapte à ton âge et contraintes.  
+- Vidéos réelles par exercice (YouTube/Instagram/TikTok) pour voir le geste exact.  
+- Minuterie par exercice avec pause automatique et option **+20 s** si essoufflé.  
+- Accessibilité : skip link, focus management, toasts aria-live, cibles tactiles ≥44×44.  
+- Offline first : fonctionne avec localStorage ; export/import CSV pour transfert.
 
-## Déploiement via GitHub Pages
-1. Pousser les fichiers sur la branche main.  
-2. Dans GitHub, Settings → Pages → Branch: main, Folder: / → Save.  
-3. Attendre l’URL fournie par GitHub Pages puis ouvrir pour vérifier la démo en ligne.
+---
 
-## Personnalisation
-- Remplacer animations SVG par vidéos locales MP4 : déposer les MP4 dans /media et adapter la fonction renderAnimation dans app.js.  
-- Modifier les textes d’exercices ou programmes dans app.js (tableau defaultExercises/defaultPrograms).  
-- Séparer davantage CSS/JS ou ajouter bundler si tu souhaites pipeline de build.
+## Interface (boutons clés)
+- Accueil : kits express et aperçu.  
+- Exercices : fiche vidéo + instructions + minuterie.  
+- Programmes : séquences prêtes à lancer.  
+- Tableau : historique des séances et pesées.  
+- Profil : création et activation de programme.  
+- Importer démo / Export CSV : gérer les données locales.
 
-## Tests utilisateurs recommandés
-- 3 cycles de tests avec 5 utilisateurs seniors : lisibilité, compréhension des consignes, taille des contrôles, impression des fiches.  
-- Priorité d’itération : orthographe et clarté des consignes, accessibilité (contraste et tailles), retours sur les variantes.
+---
 
-## Commandes Git utiles
-```bash
-git add .
-git commit -m "Mise à jour README.md et ajout prototype FitCoach60plus"
-git push origin main
+## Minuterie et comportement de séance
+- Chaque exercice a : durée (en secondes), repos (en secondes) et contrôle Start / Pause / Stop.  
+- Pause automatique après fin d’exercice.  
+- Pendant la pause, bouton **+20 s** ajoute 20 secondes supplémentaires si nécessaire.  
+- Mode auto : enchaîne les exercices sans intervention ; mode manuel : demande confirmation entre chaque exercice.  
+- Les toasts (début/fin/exercice/pause/+20s) sont annoncés via aria-live pour les lecteurs d’écran.
+
+---
+
+## Format d’un exercice (app.js)
+```js
+{
+  id: 1,
+  name: "Marche sur place",
+  cat: "Cardio",
+  dur: 60, // durée en secondes
+  rest: 30, // pause en secondes
+  desc: "Cardio doux — 1 minute",
+  anim: "video:https://www.youtube.com/watch?v=XXXXXXXXXXX",
+  instructions: "Marche sur place, genoux modérés. 1 min rythme modéré. Stop en cas de douleur."
+}
