@@ -1,49 +1,186 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FitCoach 60+</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitCoach 60+</title>
+    
+    <style>
+        /* Styles de base pour le corps */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Style pour l'en-tête (titre) */
+        header {
+            text-align: center;
+            padding: 25px 20px;
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #e7e7e7;
+        }
+        header h1 {
+            margin: 0;
+            color: #0056b3; /* Un bleu pour le titre */
+        }
+        header p {
+            margin: 5px 0 0;
+            font-style: italic;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        /* Styles pour la barre de navigation */
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav li {
+            display: inline-block;
+            margin: 0 12px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 0;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Style pour le contenu principal */
+        main {
+            padding: 20px;
+        }
+
+        /* Style pour le bloc de bienvenue (notre ajout) */
+        .accueil-contenu {
+            padding: 25px;
+            text-align: center; 
+            max-width: 650px; 
+            margin: 25px auto; /* Centre le bloc */
+            border: 1px solid #ddd;
+            border-radius: 8px; /* Coins arrondis */
+            background-color: #fdfdfd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Ombre légère */
+        }
+        .accueil-contenu h2 {
+            margin-top: 0;
+        }
+        
+        /* Style pour la liste "Comment ça marche" */
+        .accueil-contenu ol {
+            list-style-position: inside; /* Numéros à l'intérieur */
+            text-align: left; /* Aligne le texte de la liste à gauche */
+            display: inline-block; /* Permet au centrage de fonctionner */
+            margin-top: 15px;
+            padding-left: 0;
+        }
+        
+        .accueil-contenu li {
+            margin-bottom: 10px; /* Espace entre les étapes */
+            font-size: 1.1em;
+        }
+
+        /* Style pour le bouton d'action (notre ajout) */
+        .cta-bouton {
+            display: inline-block;
+            background-color: #007bff; /* Un bleu vif */
+            color: white; /* Texte blanc */
+            padding: 14px 22px;
+            text-decoration: none; /* Enlève le soulignement */
+            border-radius: 5px;
+            font-size: 1.15em; /* Police plus grande */
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .cta-bouton:hover {
+            background-color: #0056b3; /* Bleu plus foncé au survol */
+        }
+
+        /* Styles pour les autres boutons (Importer/Exporter) */
+        .admin-buttons {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .admin-buttons button {
+            padding: 8px 12px;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+
+        /* Style pour le pied de page */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #f8f8f8;
+            border-top: 1px solid #e7e7e7;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
 </head>
+
 <body>
-  <a href="#view-area" class="skip-link">Aller au contenu</a>
-  <div id="toast" aria-live="polite" aria-atomic="true" class="visually-hidden" tabindex="-1"></div>
 
-  <header>
-    <div class="container brand">
-      <div class="logo">FC</div>
-      <div>
+    <header>
         <h1>FitCoach 60+</h1>
-        <div class="lead">Programmes courts, sûrs, sans appui sur les mains</div>
-      </div>
-    </div>
+        <p>Programmes courts, sûrs, sans appui sur les mains</p>
+    </header>
 
-    <nav class="container" role="navigation" aria-label="Navigation principale">
-      <button id="nav-landing" class="btn-ghost" aria-controls="view-area">Accueil</button>
-      <button id="nav-ex" class="btn-ghost" aria-controls="view-area">Exercices</button>
-      <button id="nav-prog" class="btn-ghost" aria-controls="view-area">Programmes</button>
-      <button id="nav-dashboard" class="btn-ghost" aria-controls="view-area">Tableau</button>
-      <button id="nav-profile" class="btn-ghost" aria-controls="view-area">Profil</button>
-
-      <div style="margin-left:auto;display:flex;gap:8px">
-        <button id="btn-demo" class="btn-ghost" aria-label="Importer données de démonstration">Importer démo</button>
-        <button id="btn-export" class="btn-ghost" aria-label="Exporter données en CSV">Export CSV</button>
-      </div>
+    <nav>
+        <ul>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#">Exercices</a></li>
+            <li><a href="#">Programmes</a></li>
+            <li><a href="#">Tableau</a></li>
+            <li><a href="#">Profil</a></li>
+        </ul>
     </nav>
-  </header>
 
-  <main id="main" class="container" role="main">
-    <section id="view-area" tabindex="-1">
-      <!-- Contenu injecté par app.js -->
-    </section>
-  </main>
+    <main>
 
-  <footer class="container">
-    <div class="small">Prototype local corrigé — animations SVG intégrées</div>
-  </footer>
+        <div class="accueil-contenu">
+          <h2>Bienvenue sur FitCoach 60+ !</h2>
+          <p>Découvrez nos exercices doux, conçus pour vous aider à rester en forme, en toute sécurité et depuis chez vous.</p>
 
-  <script src="app.js"></script>
+          <h3>Comment ça marche ?</h3>
+          <ol>
+            <li><strong>Découvrez</strong> nos exercices (section "Exercices").</li>
+            <li><strong>Suivez</strong> un programme adapté (section "Programmes").</li>
+            <li><strong>Voyez</strong> vos progrès (section "Tableau").</li>
+          </ol>
+
+          <a href="#exercices" class="cta-bouton">Commencer les exercices</a>
+        </div>
+        <div class="admin-buttons">
+            <button>Importer démo</button>
+            <button>Export CSV</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>Prototype local corrigé — animations SVG intégrées</p>
+    </footer>
+
 </body>
 </html>
+
+
 
