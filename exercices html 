@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitCoach 60+ - Exercices</title>
+    <style>
+        /* Styles de base, repris de index.html */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+            font-size: 17px;
+        }
+        header {
+            text-align: center;
+            padding: 25px 20px;
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #e7e7e7;
+        }
+        header h1 {
+            margin: 0;
+            color: #0056b3;
+        }
+        header p {
+            margin: 5px 0 0;
+            font-style: italic;
+            font-size: 1.1em;
+            color: #555;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav li {
+            display: inline-block;
+            margin: 0 12px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 0;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+            max-width: 800px; /* Largeur un peu plus grande pour les exercices */
+            margin: 0 auto;
+        }
+
+        /* Styles spécifiques à la page Exercices */
+        .titre-page {
+            text-align: center;
+            color: #0056b3;
+            margin-bottom: 30px;
+        }
+        .exercice-carte {
+            background-color: #fdfdfd;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex; /* Pour aligner image et texte */
+            flex-direction: column; /* Par défaut en colonne pour mobile */
+            gap: 20px; /* Espace entre les éléments */
+            align-items: center; /* Centrer les éléments */
+        }
+        @media (min-width: 600px) { /* Pour les écrans plus larges */
+            .exercice-carte {
+                flex-direction: row; /* En ligne sur les grands écrans */
+                text-align: left;
+                align-items: flex-start; /* Aligner en haut */
+            }
+        }
+
+        .exercice-image {
+            flex-shrink: 0; /* Empêche l'image de rétrécir */
+            width: 150px; /* Taille fixe pour l'image */
+            height: 150px;
+            border-radius: 8px;
+            object-fit: cover; /* S'assure que l'image remplit bien */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .exercice-details {
+            flex-grow: 1; /* Le texte prend l'espace restant */
+        }
+        .exercice-details h3 {
+            margin-top: 0;
+            color: #28a745; /* Vert pour le titre de l'exercice */
+        }
+        .exercice-details strong {
+            color: #555;
+        }
+
+        /* Style pour le pied de page */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #f8f8f8;
+            border-top: 1px solid #e7e7e7;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>FitCoach 60+</h1>
+        <p>Programmes courts, sûrs, sans appui sur les mains</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="exercices.html">Exercices</a></li>
+            <li><a href="programmes.html">Programmes</a></li>
+            <li><a href="tableau.html">Tableau</a></li>
+            <li><a href="profil.html">Profil</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2 class="titre-page">Tous nos exercices</h2>
+        <p style="text-align: center; margin-bottom: 40px;">Découvrez nos mouvements doux et efficaces, expliqués pas à pas. Cliquez sur un exercice pour plus de détails (à venir).</p>
+
+        <section class="liste-exercices">
+            <article class="exercice-carte">
+                
+                <img src="https://via.placeholder.com/150/d3d3d3/000000?text=Animation+exercice" alt="Animation Levé de genoux assis" class="exercice-image">
+                
+                <div class="exercice-details">
+                    <h3>Levé de genoux assis</h3>
+                    <p><strong>Difficulté :</strong> Facile</p>
+                    <p><strong>Instruction :</strong> Asseyez-vous bien droit sur une chaise, les pieds à plat. Levez doucement un genou vers votre poitrine, tenez 2 secondes, puis reposez-le. Alternez avec l'autre jambe. Répétez 10 fois par jambe.</p>
+                    <p><strong>Bénéfices :</strong> Renforce les cuisses et les abdominaux en douceur, améliore la circulation.</p>
+                    <p><strong>Attention :</strong> Gardez le dos droit, ne forcez pas. Si vous ressentez une douleur, arrêtez.</p>
+                </div>
+            </article>
+
+            <article class="exercice-carte">
+                
+                <img src="https://via.placeholder.com/150/d3d3d3/000000?text=Animation+exercice" alt="Animation Rotation du tronc assis" class="exercice-image">
+                
+                <div class="exercice-details">
+                    <h3>Rotation du tronc assis</h3>
+                    <p><strong>Difficulté :</strong> Facile</p>
+                    <p><strong>Instruction :</strong> Toujours assis sur votre chaise, les pieds à plat. Placez vos mains sur vos épaules. Tournez doucement votre buste vers la droite, puis vers la gauche, comme pour regarder derrière vous. Faites le mouvement lentement et en douceur. Répétez 8 fois de chaque côté.</p>
+                    <p><strong>Bénéfices :</strong> Assouplit la colonne vertébrale, améliore la mobilité du haut du corps.</p>
+                    <p><strong>Attention :</strong> Ne forcez pas la rotation, allez à votre rythme. Gardez les hanches stables.</p>
+                </div>
+            </article>
+
+            <article class="exercice-carte">
+                
+                <img src="https://via.placeholder.com/150/d3d3d3/000000?text=Animation+exercice" alt="Animation Extension des jambes assis" class="exercice-image">
+                
+                <div class="exercice-details">
+                    <h3>Extension des jambes assis</h3>
+                    <p><strong>Difficulté :</strong> Facile</p>
+                    <p><strong>Instruction :</strong> Asseyez-vous confortablement. Tendez une jambe devant vous jusqu'à ce qu'elle soit presque droite, sans verrouiller le genou. Maintenez la position quelques secondes, puis ramenez le pied au sol. Alternez avec l'autre jambe. Répétez 10 fois par jambe.</p>
+                    <p><strong>Bénéfices :</strong> Renforce les muscles des cuisses (quadriceps), améliore l'équilibre.</p>
+                    <p><strong>Attention :</strong> Ne levez pas trop haut si cela tire sur le dos. Contrôlez la descente.</p>
+                </div>
+            </article>
+            
+            <article class="exercice-carte">
+                
+                <img src="https://via.placeholder.com/150/d3d3d3/000000?text=Animation+exercice" alt="Image générique pour un exercice" class="exercice-image">
+                
+                <div class="exercice-details">
+                    <h3>(Ajouter un nouvel exercice ici)</h3>
+                    <p><strong>Difficulté :</strong> ...</p>
+                    <p><strong>Instruction :</strong> ...</p>
+                    <p><strong>Bénéfices :</strong> ...</p>
+                    <p><strong>Attention :</strong> ...</p>
+                </div>
+            </article>
+
+
+        </section>
+    </main>
+
+    <footer>
+        <p>Prototype local corrigé — animations SVG intégrées</p>
+    </footer>
+
+</body>
+</html>
