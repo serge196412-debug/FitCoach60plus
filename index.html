@@ -112,34 +112,34 @@
             background-color: #0056b3; /* Bleu plus foncé au survol */
         }
         
-        /* NOUVEAU : Style pour la section Exercices */
-        .exercices-contenu {
+        /* Style pour la section Exercices sur la page d'accueil */
+        .exercices-preview {
             max-width: 650px;
-            margin: 40px auto; /* Espace au-dessus et en-dessous */
+            margin: 40px auto;
             padding: 25px;
             background-color: #fdfdfd;
             border: 1px solid #ddd;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            /* On ajoute scroll-margin-top pour que le titre ne soit pas caché par la barre de nav (si elle était fixe) */
-            scroll-margin-top: 20px; 
-        }
-        .exercices-contenu h2 {
             text-align: center;
+        }
+        .exercices-preview h2 {
             color: #0056b3;
             margin-top: 0;
         }
-
-        /* NOUVEAU : Style pour une "carte" d'exercice */
-        .exercice-carte {
-            background-color: #fff;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 15px 20px;
-            margin-top: 20px;
+        .exercices-preview .btn-voir-plus {
+            display: inline-block;
+            background-color: #28a745; /* Vert pour "voir plus" */
+            color: white;
+            padding: 10px 18px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
         }
-        .exercice-carte h3 {
-            margin-top: 0;
+        .exercices-preview .btn-voir-plus:hover {
+            background-color: #218838;
         }
 
 
@@ -178,11 +178,11 @@
 
     <nav>
         <ul>
-            <li><a href="#">Accueil</a></li>
-            <li><a href="#exercices">Exercices</a></li>
-            <li><a href="#">Programmes</a></li>
-            <li><a href="#">Tableau</a></li>
-            <li><a href="#">Profil</a></li>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="exercices.html">Exercices</a></li>
+            <li><a href="programmes.html">Programmes</a></li>
+            <li><a href="tableau.html">Tableau</a></li>
+            <li><a href="profil.html">Profil</a></li>
         </ul>
     </nav>
 
@@ -194,30 +194,20 @@
 
           <h3>Comment ça marche ?</h3>
           <ol>
-            <li><strong>Découvrez</strong> nos exercices (section "Exercices").</li>
-            <li><strong>Suivez</strong> un programme adapté (section "Programmes").</li>
-            <li><strong>Voyez</strong> vos progrès (section "Tableau").</li>
+            <li><strong>Découvrez</strong> nos exercices (cliquez sur "Exercices" ci-dessus).</li>
+            <li><strong>Suivez</strong> un programme adapté (cliquez sur "Programmes" ci-dessus).</li>
+            <li><strong>Suivez vos progrès</strong> (cliquez sur "Tableau" ou "Profil" ci-dessus).</li>
           </ol>
 
-          <a href="#exercices" class="cta-bouton">Commencer les exercices</a>
+          <a href="exercices.html" class="cta-bouton">Commencer les exercices</a>
         </div>
-        <section id="exercices" class="exercices-contenu">
-            <h2>Nos Exercices</h2>
-            <p style="text-align: center;">Voici quelques exercices de base, sûrs et efficaces, à faire chez vous.</p>
-            
-            <article class="exercice-carte">
-                <h3>Exercice 1 : Levé de genoux assis</h3>
-                <p><strong>Difficulté :</strong> Facile</p>
-                <p><strong>Instruction :</strong> Asseyez-vous bien droit sur une chaise, les pieds à plat. Levez doucement un genou vers votre poitrine, tenez 2 secondes, puis reposez-le. Alternez avec l'autre jambe.</p>
-                <p><strong>Objectif :</strong> Renforce les cuisses et les abdominaux en douceur.</p>
-            </article>
-            
-            <article class="exercice-carte">
-                <h3>(Prochain exercice à ajouter)</h3>
-                <p>...</p>
-            </article>
-
+        
+        <section class="exercices-preview">
+            <h2>Un aperçu de nos exercices</h2>
+            <p>Conçus pour votre bien-être et votre sécurité, à faire à votre rythme.</p>
+            <a href="exercices.html" class="btn-voir-plus">Voir tous les exercices</a>
         </section>
+
         <div class="admin-buttons">
             <button>Voir un programme d'exemple</button>
             <button>Télécharger mes progrès</button>
