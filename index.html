@@ -111,6 +111,37 @@
         .cta-bouton:hover {
             background-color: #0056b3; /* Bleu plus foncé au survol */
         }
+        
+        /* NOUVEAU : Style pour la section Exercices */
+        .exercices-contenu {
+            max-width: 650px;
+            margin: 40px auto; /* Espace au-dessus et en-dessous */
+            padding: 25px;
+            background-color: #fdfdfd;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            /* On ajoute scroll-margin-top pour que le titre ne soit pas caché par la barre de nav (si elle était fixe) */
+            scroll-margin-top: 20px; 
+        }
+        .exercices-contenu h2 {
+            text-align: center;
+            color: #0056b3;
+            margin-top: 0;
+        }
+
+        /* NOUVEAU : Style pour une "carte" d'exercice */
+        .exercice-carte {
+            background-color: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-top: 20px;
+        }
+        .exercice-carte h3 {
+            margin-top: 0;
+        }
+
 
         /* Styles pour les autres boutons (Importer/Exporter) */
         .admin-buttons {
@@ -148,7 +179,7 @@
     <nav>
         <ul>
             <li><a href="#">Accueil</a></li>
-            <li><a href="#">Exercices</a></li>
+            <li><a href="#exercices">Exercices</a></li>
             <li><a href="#">Programmes</a></li>
             <li><a href="#">Tableau</a></li>
             <li><a href="#">Profil</a></li>
@@ -170,6 +201,23 @@
 
           <a href="#exercices" class="cta-bouton">Commencer les exercices</a>
         </div>
+        <section id="exercices" class="exercices-contenu">
+            <h2>Nos Exercices</h2>
+            <p style="text-align: center;">Voici quelques exercices de base, sûrs et efficaces, à faire chez vous.</p>
+            
+            <article class="exercice-carte">
+                <h3>Exercice 1 : Levé de genoux assis</h3>
+                <p><strong>Difficulté :</strong> Facile</p>
+                <p><strong>Instruction :</strong> Asseyez-vous bien droit sur une chaise, les pieds à plat. Levez doucement un genou vers votre poitrine, tenez 2 secondes, puis reposez-le. Alternez avec l'autre jambe.</p>
+                <p><strong>Objectif :</strong> Renforce les cuisses et les abdominaux en douceur.</p>
+            </article>
+            
+            <article class="exercice-carte">
+                <h3>(Prochain exercice à ajouter)</h3>
+                <p>...</p>
+            </article>
+
+        </section>
         <div class="admin-buttons">
             <button>Voir un programme d'exemple</button>
             <button>Télécharger mes progrès</button>
