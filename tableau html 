@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitCoach 60+ - Tableau de Bord</title>
+    <style>
+        /* Styles de base, repris de index.html */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+            font-size: 17px;
+        }
+        header {
+            text-align: center;
+            padding: 25px 20px;
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #e7e7e7;
+        }
+        header h1 {
+            margin: 0;
+            color: #0056b3;
+        }
+        header p {
+            margin: 5px 0 0;
+            font-style: italic;
+            font-size: 1.1em;
+            color: #555;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav li {
+            display: inline-block;
+            margin: 0 12px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 0;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .titre-page {
+            color: #0056b3;
+            margin-bottom: 30px;
+        }
+        .contenu-tableau {
+            background-color: #fdfdfd;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Style pour le pied de page */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #f8f8f8;
+            border-top: 1px solid #e7e7e7;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>FitCoach 60+</h1>
+        <p>Programmes courts, sûrs, sans appui sur les mains</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="exercices.html">Exercices</a></li>
+            <li><a href="programmes.html">Programmes</a></li>
+            <li><a href="tableau.html">Tableau</a></li>
+            <li><a href="profil.html">Profil</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2 class="titre-page">Mon Tableau de Bord / Mes Progrès</h2>
+        <div class="contenu-tableau">
+            <p>Bienvenue sur votre tableau de bord personnel. C'est ici que vous pourrez suivre vos performances, visualiser vos progrès et rester motivé(e) !</p>
+            <p>Cette section est encore en développement. Bientôt, vous pourrez voir des graphiques de vos séances, le nombre de répétitions effectuées et l'évolution de votre forme physique.</p>
+            <p>Restez connecté(e) pour suivre votre parcours FitCoach 60+ !</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Prototype local corrigé — animations SVG intégrées</p>
+    </footer>
+
+</body>
+</html>
