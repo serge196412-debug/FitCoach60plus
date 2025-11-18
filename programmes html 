@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitCoach 60+ - Programmes</title>
+    <style>
+        /* Styles de base, repris de index.html */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+            font-size: 17px;
+        }
+        header {
+            text-align: center;
+            padding: 25px 20px;
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #e7e7e7;
+        }
+        header h1 {
+            margin: 0;
+            color: #0056b3;
+        }
+        header p {
+            margin: 5px 0 0;
+            font-style: italic;
+            font-size: 1.1em;
+            color: #555;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav li {
+            display: inline-block;
+            margin: 0 12px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 0;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center; /* Centrer le contenu */
+        }
+        .titre-page {
+            color: #0056b3;
+            margin-bottom: 30px;
+        }
+        .contenu-programmes {
+            background-color: #fdfdfd;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Style pour le pied de page */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #f8f8f8;
+            border-top: 1px solid #e7e7e7;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>FitCoach 60+</h1>
+        <p>Programmes courts, sûrs, sans appui sur les mains</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="exercices.html">Exercices</a></li>
+            <li><a href="programmes.html">Programmes</a></li>
+            <li><a href="tableau.html">Tableau</a></li>
+            <li><a href="profil.html">Profil</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2 class="titre-page">Nos Programmes d'Entraînement</h2>
+        <div class="contenu-programmes">
+            <p>Bienvenue dans la section des programmes. Ici, vous pourrez bientôt découvrir des enchaînements d'exercices thématiques, adaptés à vos objectifs et à votre niveau.</p>
+            <p>Que vous cherchiez à améliorer votre équilibre, renforcer vos muscles ou simplement rester actif, nous aurons un programme pour vous.</p>
+            <p>Revenez bientôt pour découvrir nos premiers programmes personnalisés !</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Prototype local corrigé — animations SVG intégrées</p>
+    </footer>
+
+</body>
+</html>
