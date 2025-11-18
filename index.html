@@ -1,217 +1,61 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitCoach 60+</title>
-    
+    <title>FitCoach 60+ - Exercices</title>
     <style>
-        /* Styles de base pour le corps */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #fff;
-            color: #333;
-            line-height: 1.6;
-            font-size: 17px; /* Taille de police augmentée */
+        /* ... (styles inchangés) ... */
+        .exercice-image {
+            /* ... (styles inchangés) ... */
+            background-color: #f9f9f9; 
         }
-
-        /* Style pour l'en-tête (titre) */
-        header {
-            text-align: center;
-            padding: 25px 20px;
-            background-color: #f8f8f8;
-            border-bottom: 1px solid #e7e7e7;
-        }
-        header h1 {
-            margin: 0;
-            color: #0056b3; /* Un bleu pour le titre */
-        }
-        header p {
-            margin: 5px 0 0;
-            font-style: italic;
-            font-size: 1.1em;
-            color: #555;
-        }
-
-        /* Styles pour la barre de navigation */
-        nav {
-            background-color: #333;
-            padding: 10px 0;
-        }
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        nav li {
-            display: inline-block;
-            margin: 0 12px;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 5px 0;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        /* Style pour le contenu principal */
-        main {
-            padding: 20px;
-        }
-
-        /* Style pour le bloc de bienvenue (notre ajout) */
-        .accueil-contenu {
-            padding: 25px;
-            text-align: center; 
-            max-width: 650px; 
-            margin: 25px auto; /* Centre le bloc */
-            border: 1px solid #ddd;
-            border-radius: 8px; /* Coins arrondis */
-            background-color: #fdfdfd;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Ombre légère */
-        }
-        .accueil-contenu h2 {
-            margin-top: 0;
-        }
-        
-        /* Style pour la liste "Comment ça marche" */
-        .accueil-contenu ol {
-            list-style-position: inside; /* Numéros à l'intérieur */
-            text-align: left; /* Aligne le texte de la liste à gauche */
-            display: inline-block; /* Permet au centrage de fonctionner */
-            margin-top: 15px;
-            padding-left: 0;
-        }
-        
-        .accueil-contenu li {
-            margin-bottom: 10px; /* Espace entre les étapes */
-            font-size: 1.1em;
-        }
-
-        /* Style pour le bouton d'action (notre ajout) */
-        .cta-bouton {
-            display: inline-block;
-            background-color: #007bff; /* Un bleu vif */
-            color: white; /* Texte blanc */
-            padding: 14px 22px;
-            text-decoration: none; /* Enlève le soulignement */
-            border-radius: 5px;
-            font-size: 1.15em; /* Police plus grande */
-            font-weight: bold;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-        }
-        
-        .cta-bouton:hover {
-            background-color: #0056b3; /* Bleu plus foncé au survol */
-        }
-        
-        /* Style pour la section Exercices sur la page d'accueil */
-        .exercices-preview {
-            max-width: 650px;
-            margin: 40px auto;
-            padding: 25px;
-            background-color: #fdfdfd;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        .exercices-preview h2 {
-            color: #0056b3;
-            margin-top: 0;
-        }
-        .exercices-preview .btn-voir-plus {
-            display: inline-block;
-            background-color: #28a745; /* Vert pour "voir plus" */
-            color: white;
-            padding: 10px 18px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-top: 15px;
-            transition: background-color 0.3s ease;
-        }
-        .exercices-preview .btn-voir-plus:hover {
-            background-color: #218838;
-        }
-
-
-        /* Styles pour les autres boutons (Importer/Exporter) */
-        .admin-buttons {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        .admin-buttons button {
-            padding: 8px 12px;
-            margin: 5px;
-            font-size: 0.9em;
-        }
-
-        /* Style pour le pied de page */
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 30px;
-            background-color: #f8f8f8;
-            border-top: 1px solid #e7e7e7;
-            font-size: 0.9em;
-            color: #777;
-        }
+        /* ... (fin des styles) ... */
     </style>
 </head>
 
 <body>
-
-    <header>
-        <h1>FitCoach 60+</h1>
-        <p>Programmes courts, sûrs, sans appui sur les mains</p>
-    </header>
-
-    <nav>
-        <ul>
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="exercices.html">Exercices</a></li>
-            <li><a href="programmes.html">Programmes</a></li>
-            <li><a href="tableau.html">Tableau</a></li>
-            <li><a href="profil.html">Profil</a></li>
-        </ul>
-    </nav>
-
     <main>
+        <h2 class="titre-page">Tous nos exercices</h2>
+        <p style="text-align: center; margin-bottom: 40px;">Pour voir les animations, tu dois les télécharger et les mettre dans le dossier /img/.</p>
 
-        <div class="accueil-contenu">
-          <h2>Bienvenue sur FitCoach 60+ !</h2>
-          <p>Découvrez nos exercices doux, conçus pour vous aider à rester en forme, en toute sécurité et depuis chez vous.</p>
+        <section class="liste-exercices">
+            
+            <article class="exercice-carte">
+                <img src="img/lever_genoux.gif" alt="Animation Levé de genoux assis" class="exercice-image">
+                
+                <div class="exercice-details">
+                    <h3>Levé de genoux assis</h3>
+                    </div>
+            </article>
 
-          <h3>Comment ça marche ?</h3>
-          <ol>
-            <li><strong>Découvrez</strong> nos exercices (cliquez sur "Exercices" ci-dessus).</li>
-            <li><strong>Suivez</strong> un programme adapté (cliquez sur "Programmes" ci-dessus).</li>
-            <li><strong>Suivez vos progrès</strong> (cliquez sur "Tableau" ou "Profil" ci-dessus).</li>
-          </ol>
+            
+            <article class="exercice-carte">
+                <img src="img/rotation_tronc.gif" alt="Animation Rotation du tronc assis" class="exercice-image">
+                
+                <div class="exercice-details">
+                    <h3>Rotation du tronc assis</h3>
+                    </div>
+            </article>
 
-          <a href="exercices.html" class="cta-bouton">Commencer les exercices</a>
-        </div>
-        
-        <section class="exercices-preview">
-            <h2>Un aperçu de nos exercices</h2>
-            <p>Conçus pour votre bien-être et votre sécurité, à faire à votre rythme.</p>
-            <a href="exercices.html" class="btn-voir-plus">Voir tous les exercices</a>
+            
+            <article class="exercice-carte">
+                <img src="img/extension_jambes.gif" alt="Animation Extension des jambes assis" class="exercice-image">
+                
+                <div class="exercice-details">
+                    <h3>Extension des jambes assis</h3>
+                    </div>
+            </article>
+            
+            
+            <article class="exercice-carte">
+                <img src="img/placeholder.png" alt="Image générique pour un exercice" class="exercice-image">
+                
+                <div class="exercice-details">
+                    <h3>(Ajouter un nouvel exercice ici)</h3>
+                    </div>
+            </article>
+
+
         </section>
-
-        <div class="admin-buttons">
-            <button>Voir un programme d'exemple</button>
-            <button>Télécharger mes progrès</button>
-        </div>
     </main>
 
     <footer>
